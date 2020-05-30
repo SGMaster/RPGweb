@@ -1,2 +1,5 @@
-com\example\demo\DemoApplication.class
-com\example\demo\controller\DemoController.class
+com\rpg\web\user\model\User$UserBuilder.class
+com\rpg\web\RpgApplication$1.class
+com\rpg\web\RpgApplication.class
+com\rpg\web\user\model\User.class
+com\rpg\web\user\controller\UserController.class
