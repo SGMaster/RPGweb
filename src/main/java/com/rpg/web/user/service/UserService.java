@@ -33,4 +33,9 @@ public class UserService {
 		
 	}
 	
+	public List<User> seeUser() {
+		return (List<User>) userRepository.findAll();
+		
+	}
+	
 }
