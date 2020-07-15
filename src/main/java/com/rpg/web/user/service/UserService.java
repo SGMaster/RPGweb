@@ -1,17 +1,21 @@
 package com.rpg.web.user.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.rpg.web.user.model.MyUserDetails;
 import com.rpg.web.user.model.User;
 import com.rpg.web.user.model.UserRepository;
-import com.rpg.web.user.model.UserSpecification;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private UserRepository userRepository;
 	
@@ -20,16 +24,8 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
-	public boolean verifyUser(String nickname, String password) {
-		List<User> user = userRepository.findAll(
-				UserSpecification.equalNickname(nickname)
-				);
-		for(User u: user) {
-			if(u.getPassword().equals(password)) {
-				return true;
-			}
-		}
-		return false;
+	public User verifyUser(String nickname, String password) {
+		return userRepository.finUserByNickname(nickname);
 		
 	}
 	
@@ -37,5 +33,12 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 		
 	}
-	
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.finUserByNickname(username);
+
+
+		return new MyUserDetails(user.getNickname(), user.getPassword());
+	}
 }

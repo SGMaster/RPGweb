@@ -27,8 +27,13 @@ public class UserController {
 		this.userService = userService;
 	}
 	
+	@GetMapping("")
+	public String home() {
+		return("<h1>Welcome</h1>");
+	}
+	
 	@PostMapping("/login")
-	public boolean firstPage(@RequestBody UserDto userDto) {
+	public User firstPage(@RequestBody UserDto userDto) {
 		return userService.verifyUser(userDto.getNickname(), userDto.getPassword());
 	}
 	

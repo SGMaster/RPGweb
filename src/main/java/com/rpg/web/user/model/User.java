@@ -1,10 +1,16 @@
 package com.rpg.web.user.model;
 
-import javax.persistence.Column;
+import java.util.Arrays;
+import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_user_user", schema="public")
-public class User {
+public class User{
 	
 	@Id
 	@Column(name = "id_user")
@@ -32,6 +38,10 @@ public class User {
 	@Column(name = "st_user_password")
 	private String password;
 
+	public User(String username) {
+		this.nickname=username;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -57,13 +67,25 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return "dale";
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}	
+
+	public User() {
+		
+	}
+
+	public User(Long id, String name, String nickname, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.nickname = nickname;
+		this.password = password;
 	}
 	
 	
-
+	
 }
