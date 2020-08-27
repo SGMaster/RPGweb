@@ -1,28 +1,28 @@
 package com.rpg.web.security;
 
+import com.rpg.web.security.controller.LoginInfoDto;
+import com.rpg.web.user.model.User;
+
 public class AuthenticationResponse {
 
-	private String token;
-	private String refreshToken;
+	private Tokens tokens;
+	private LoginInfoDto userInfo;
 	
 	public AuthenticationResponse() {
 		
 	}
 	
-	public AuthenticationResponse(String token, String refreshToken) {
-		this.token = token;
-		this.refreshToken = refreshToken;
+	public AuthenticationResponse(Tokens tokens, LoginInfoDto userInfo) {
+		this.tokens = tokens;
+		this.userInfo = userInfo;
 	}
 	
-	public String getToken() {
-		return token;
+	public Tokens getTokens() {
+		return tokens;
+	}
+	
+	public LoginInfoDto getUserInfo() {
+		return userInfo;
 	}
 		
-	public String getRefreshToken() {
-		return refreshToken;
-	}
-	
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
 }

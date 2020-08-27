@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rpg.web.security.AuthenticationResponse;
 import com.rpg.web.security.JwtUtil;
+import com.rpg.web.security.Tokens;
 import com.rpg.web.user.controller.UserDto;
+import com.rpg.web.user.model.User;
 import com.rpg.web.user.service.UserService;
 
 @RestController
@@ -38,10 +40,17 @@ public class SecurityController {
 		}
 
 		final UserDetails userDetails = userService.loadUserByUsername(userDto.getNickname());
-
+		
+		User user = userService.loadUserInfo(userDto.getNickname());
+		user.setPassword(null);
+		
+		LoginInfoDto loginInfo = SecurityMapper.userToLoginInfoDto(user);
+		
 		final String token = jwtUtil.generateToken(userDetails);
+		
+		final Tokens tokens = new Tokens(token, token);
 
-		return ResponseEntity.ok(new AuthenticationResponse(token, token));
+		return ResponseEntity.ok(new AuthenticationResponse(tokens, loginInfo));
 
 	}
 

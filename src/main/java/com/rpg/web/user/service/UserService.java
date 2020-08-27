@@ -41,4 +41,9 @@ public class UserService implements UserDetailsService {
 
 		return new MyUserDetails(user.getNickname(), user.getPassword());
 	}
+	
+	public User loadUserInfo(String username) throws UsernameNotFoundException {
+		return userRepository.finUserByNickname(username);
+
+	}
 }
