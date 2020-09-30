@@ -13,6 +13,7 @@ public class SecurityMapper {
 				.id(user.getId())
 				.name(user.getName())
 				.nickname(user.getNickname())
+				.email(user.getEmail())
 				.build();
 	}
 	

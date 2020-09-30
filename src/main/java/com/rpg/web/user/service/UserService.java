@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public User verifyUser(String nickname, String password) {
-		return userRepository.finUserByNickname(nickname);
+		return userRepository.findUserByNickname(nickname);
 		
 	}
 	
@@ -36,14 +36,26 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.finUserByNickname(username);
+		User user = userRepository.findUserByNickname(username);
 
 
 		return new MyUserDetails(user.getNickname(), user.getPassword());
 	}
 	
 	public User loadUserInfo(String username) throws UsernameNotFoundException {
-		return userRepository.finUserByNickname(username);
+		return userRepository.findUserByNickname(username);
 
+	}
+	
+	public void create(User user) {
+		User existUserEmail = userRepository.findUserByEmail(user.getEmail());
+		User existUserNickname = userRepository.findUserByNickname(user.getNickname());
+		if(!Objects.isNull(existUserNickname))
+			throw new IllegalArgumentException("Apelido já existe");
+		
+		if(!Objects.isNull(existUserEmail))
+			throw new IllegalArgumentException("Email já cadastrado");
+			
+		this.userRepository.save(user);
 	}
 }

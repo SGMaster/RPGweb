@@ -9,6 +9,10 @@ public interface UserRepository extends CrudRepository<User, Long>, JpaSpecifica
 	
 	@Query("select user from User user "
 			+ "where user.nickname = ?1")
-	User finUserByNickname(String nickname);
+	User findUserByNickname(String nickname);
 
+	@Query("select user from User user "
+			+ "where user.email = ?1")
+	User findUserByEmail(String email);
+	
 }

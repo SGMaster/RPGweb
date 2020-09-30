@@ -1,3 +1,5 @@
+CREATE sequence sq_user;
+
 create table tb_user_user(
     id_user bigint NOT NULL,
     st_user_name varchar(240) NOT NULL,

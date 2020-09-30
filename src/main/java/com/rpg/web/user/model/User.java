@@ -2,19 +2,28 @@ package com.rpg.web.user.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="tb_user_user", schema="public")
+@SequenceGenerator(name = "sq_user", initialValue = 1, allocationSize = 1)
 public class User{
 	
 	@Id
+	@GeneratedValue(generator = "sq_user", strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_user")
 	private Long id;
 	
@@ -27,54 +36,8 @@ public class User{
 	@Column(name = "st_user_password")
 	private String password;
 
-	public User(String username) {
-		this.nickname=username;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickName(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public String getPassword() {
-		return "dale";
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}	
-
-	public User() {
-		
-	}
-
-	public User(Long id, String name, String nickname, String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.nickname = nickname;
-		this.password = password;
-	}
-	
+	@Column(name = "st_user_email")
+	private String email;	
 	
 	
 }
